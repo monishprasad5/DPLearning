@@ -1,0 +1,67 @@
+class FileHandler
+{
+    File* open(){};
+    void close(File*){};
+    void read(){};
+    void write(){};
+};
+
+class FileLogger
+{
+    FileHandler fh;
+	fh.open();
+	fh.write();
+	fh.close();
+};
+
+class PatientCSVDataReader
+{
+	FileHandler fh;
+	PatientCSVDataReader(){
+		fh.open();
+	}
+	read(){
+		fh.read();
+	}
+};
+
+class PatientXMLDataWriter
+{
+    DBWriter dbw;
+	string data;
+	operator=(PatientXMLDataWriter w);
+	write()
+	{
+		dbw.write(this.data);
+	}
+};
+
+class PatientDataValidator
+{
+	validate(PatientCSVDataReader fileData);
+};
+
+class DBWriter
+{
+	OracleJDBC db;
+	DBWriter(){
+		db.getConnection();
+	}
+	write(string){
+		db.write(string);
+	}
+};
+
+class PatientDataConverter
+{
+    PatientCSVDataReader reader;
+    PatientXMLDataWriter writer;
+    PatientDataValidator validator;
+	performJob(){
+		reader.read();
+		validator.validate(reader);
+		writer = convertToXML(reader);
+		writer.write();
+	}
+	PatientXMLDataWriter convertToXML(PatientCSVDataReader);
+}; 
